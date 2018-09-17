@@ -28,11 +28,8 @@
     </f7-subnavbar>
     </f7-navbar>
     <f7-block-title>用户列表</f7-block-title>
-    <f7-list class="searchbar-not-found">
-        <f7-list-item title="未找到相关记录"></f7-list-item>
-    </f7-list>
     <f7-list>
-      <f7-list-item swipeout v-for="(item, index) in items" :title="item.username" :key="item._id">
+      <f7-list-item swipeout v-for="item in items" :title="item.username" :key="item._id" :after="wxbinder(item.binders)" :link="`/account/${item.username}/${item._id}`" view="#main-view">
         <f7-swipeout-actions right>
           <!-- <f7-swipeout-button>重置密码</f7-swipeout-button> -->
           <f7-swipeout-button delete confirm-text="是否要删除该用户?">删除</f7-swipeout-button>
@@ -57,23 +54,29 @@ export default {
       showPreloader: false
     };
   },
-  // computed: {},
-  // created(){    
+  computed: {
+    
+  },
+  // created(){
   // },
   // activated() {
   //   console.log("page activated");
   //   // this.loadMore();
   // },
-  mounted(){
+  mounted() {
     console.log("dom is load complate!");
     this.loadMore();
   },
-//   updated(){
-// console.log("dom updated")
-//   },
+  //   updated(){
+  // console.log("dom updated")
+  //   },
   methods: {
     test1() {
       console.log("test1");
+    },
+    wxbinder(binders) {
+      if (binders.length > 0) return "已绑定";
+      else return "";
     },
     search() {
       // console.log(searchEL.f7Searchbar.query);

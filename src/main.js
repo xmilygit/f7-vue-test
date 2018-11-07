@@ -1,6 +1,9 @@
 // Import Vue
 import Vue from 'vue';
 
+//Import vuex
+import store from './vuex/index.js';
+
 // Import axios
 import axios from 'axios';
 
@@ -33,7 +36,7 @@ Vue.prototype.$reqs=axios;
 new Vue({
   el: '#app',
   template: '<app/>',
-
+  store,
   // Register App Component
   components: {
     app: App

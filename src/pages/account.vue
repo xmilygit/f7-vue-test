@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     account:{
-      return this.$f7route.params.username;
+      // return this.$f7route.params.username
     }
   }
 };

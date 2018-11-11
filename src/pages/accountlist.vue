@@ -2,7 +2,7 @@
     <f7-page
     infinite
     :infinite-distance="50"
-    :infinite-preloader="showPreloader"
+    :infinite-preloader="false"
     @infinite="loadMore"
   >
     <f7-navbar title="用户" back-link="Back">
@@ -37,25 +37,44 @@
         </f7-swipeout-actions>
       </f7-list-item>
     </f7-list>
-    <div id='preloader' class="text-align-center"><f7-preloader></f7-preloader></div>
+    <div v-show="showPreloader" id='preloader' class="text-align-center">
+      <f7-preloader></f7-preloader>
+    </div>
   </f7-page>
 </template>
 
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 var lastid = "";
 var pagesize = 11;
 
 export default {
   data() {
     return {
-      items: [],
-      allowInfinite: true,
-      showPreloader: false
+      //items: [],
+      //allowInfinite: true,
+      //showPreloader: false
     };
   },
   computed: {
-    
+    ...mapGetters([
+      //'AccList',
+      "allowInfinite",
+      "showPreloader",
+      "dialog"
+    ]),
+    ...mapGetters({ items: "AccList" })
+  },
+  watch: {
+    dialog: function() {
+      if (!this.dialog.status) return;
+      //alert("dialog is change");
+      this.$f7.dialog.alert(this.dialog.message, this.dialog.title);
+    },
+    allowInfinite:function(){
+      this.infinite=this.allowInfinite;
+    }
   },
   // created(){
   // },
@@ -65,32 +84,43 @@ export default {
   // },
   mounted() {
     console.log("dom is load complate!");
-    this.loadMore();
+    this.GetAccList({search:'',pagesize:11});
+    //this.loadMore();
   },
   //   updated(){
   // console.log("dom updated")
   //   },
   methods: {
-    test1() {
-      console.log("test1");
-    },
+    ...mapActions(["GetAccList"]),
+    ...mapMutations(["Dialog","ClearAccList","RestLastId","ChangeShowPreloader","ChangeAllowInfinite"]),
+
     wxbinder(binders) {
       if (binders.length > 0) return "已绑定";
       else return "";
     },
     search() {
       // console.log(searchEL.f7Searchbar.query);
+      /*
       let self = this;
       self.items = [];
       lastid = "";
       self.allowInfinite = true;
       self.$$("#preloader").show();
       self.loadMore();
+      */
+      this.ClearAccList();
+      this.RestLastId();
+      this.ChangeShowPreloader(true);
+      this.ChangeAllowInfinite(true);
+      this.loadMore();
     },
-    loadMore() {
+    loadMore(){
+      let query = searchEL.f7Searchbar.query;
+      this.GetAccList({search:query,pagesize:11});
+    },
+    loadMore2() {
       const self = this;
       const app = self.$f7;
-      //console.log("========"+searchEL.f7Searchbar.query);
       if (!self.allowInfinite) return;
       let query = searchEL.f7Searchbar.query;
 

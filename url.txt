@@ -1,3 +1,5 @@
 https://blog.csdn.net/sinat_35515778/article/details/72458195
 https://www.cnblogs.com/wisewrong/p/6402183.html
 https://www.jianshu.com/p/dc9a79f6ceb7#
+Vue+Vuex一步一步入坑指南
+https://www.jianshu.com/p/3164c1309681

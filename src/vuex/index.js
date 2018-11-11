@@ -4,6 +4,8 @@ import state from './state.js';
 import * as getters from './getter.js';
 import mutations from './mutations.js';
 import actions from './action.js';
+// 引入 axios
+
 
 vue.use(vuex);
 

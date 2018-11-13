@@ -51,29 +51,19 @@ var pagesize = 11;
 
 export default {
   data() {
-    return {
-      //items: [],
-      //allowInfinite: true,
-      //showPreloader: false
-    };
+    return {};
   },
   computed: {
-    ...mapGetters([
-      //'AccList',
-      "allowInfinite",
-      "showPreloader",
-      "dialog"
-    ]),
+    ...mapGetters(["allowInfinite", "showPreloader", "dialog"]),
     ...mapGetters({ items: "AccList" })
   },
   watch: {
     dialog: function() {
       if (!this.dialog.status) return;
-      //alert("dialog is change");
       this.$f7.dialog.alert(this.dialog.message, this.dialog.title);
     },
-    allowInfinite:function(){
-      this.infinite=this.allowInfinite;
+    allowInfinite: function() {
+      this.infinite = this.allowInfinite;
     }
   },
   // created(){
@@ -84,39 +74,32 @@ export default {
   // },
   mounted() {
     console.log("dom is load complate!");
-    this.GetAccList({search:'',pagesize:11});
-    //this.loadMore();
+    this.GetAccList({ search: "", pagesize: 11 });
   },
-  //   updated(){
-  // console.log("dom updated")
-  //   },
   methods: {
     ...mapActions(["GetAccList"]),
-    ...mapMutations(["Dialog","ClearAccList","RestLastId","ChangeShowPreloader","ChangeAllowInfinite"]),
+    ...mapMutations([
+      "Dialog",
+      "ClearAccList",
+      "RestLastId",
+      "ChangeShowPreloader",
+      "ChangeAllowInfinite"
+    ]),
 
     wxbinder(binders) {
       if (binders.length > 0) return "已绑定";
       else return "";
     },
     search() {
-      // console.log(searchEL.f7Searchbar.query);
-      /*
-      let self = this;
-      self.items = [];
-      lastid = "";
-      self.allowInfinite = true;
-      self.$$("#preloader").show();
-      self.loadMore();
-      */
       this.ClearAccList();
       this.RestLastId();
       this.ChangeShowPreloader(true);
       this.ChangeAllowInfinite(true);
       this.loadMore();
     },
-    loadMore(){
+    loadMore() {
       let query = searchEL.f7Searchbar.query;
-      this.GetAccList({search:query,pagesize:11});
+      this.GetAccList({ search: query, pagesize: 11 });
     },
     loadMore2() {
       const self = this;
@@ -148,7 +131,6 @@ export default {
                 "找到" + recordsCount + "记录,当前记录数：" + self.items.length
               );
               if (self.items.length >= recordsCount) {
-                //self.showPreloader = false;
                 self.$$("#preloader").hide();
                 self.allowInfinite = false;
                 self.infinite = false;

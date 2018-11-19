@@ -20,7 +20,7 @@ export default [
     // component:test1,
   },
   {
-    path:'/account/:username/:id',
+    path:'/account/:id',
     component:account,
   },
   {

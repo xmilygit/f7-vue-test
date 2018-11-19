@@ -24,15 +24,14 @@
   <!-- <div slot="after-inner">After Inner</div> -->
       
       </f7-searchbar>
-      
     </f7-subnavbar>
     </f7-navbar>
     <f7-block-title>用户列表</f7-block-title>
     <f7-list>
-      <f7-list-item swipeout v-for="item in items" :title="item.username" :key="item._id" :after="wxbinder(item.binders)" :link="`/account/${item.username}/${item._id}`" view="#main-view">
+      <f7-list-item swipeout v-for="(item,index) in items" :key="index" :title="item.username"  :after="wxbinder(item.binders)" :link="`/account/${item._id}`" view="#main-view">
         <f7-swipeout-actions right>
           <!-- <f7-swipeout-button>重置密码</f7-swipeout-button> -->
-          <f7-swipeout-button delete confirm-text="是否要删除该用户?">删除</f7-swipeout-button>
+          <f7-swipeout-button delete confirm-text="是否要删除该用户?"><f7-icon ios="f7:delete" md="material:delete"></f7-icon></f7-swipeout-button>
           <!-- <f7-swipeout-button>修改</f7-swipeout-button> -->
         </f7-swipeout-actions>
       </f7-list-item>
@@ -40,6 +39,9 @@
     <div v-show="showPreloader" id='preloader' class="text-align-center">
       <f7-preloader></f7-preloader>
     </div>
+    <f7-fab position="right-bottom" slot="fixed" color="orange" href="false">
+      <f7-icon ios="f7:add" md="material:add"></f7-icon>
+    </f7-fab>
   </f7-page>
 </template>
 
@@ -85,7 +87,9 @@ export default {
       "ChangeShowPreloader",
       "ChangeAllowInfinite"
     ]),
-
+    test(){
+      alert('afasdf')
+    },
     wxbinder(binders) {
       if (binders.length > 0) return "已绑定";
       else return "";

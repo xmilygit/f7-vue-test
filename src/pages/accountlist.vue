@@ -39,7 +39,7 @@
     <div v-show="showPreloader" id='preloader' class="text-align-center">
       <f7-preloader></f7-preloader>
     </div>
-    <f7-fab position="right-bottom" slot="fixed" color="orange" href="false">
+    <f7-fab position="right-bottom" slot="fixed" color="orange" href="/account/add" view="#main-view">
       <f7-icon ios="f7:add" md="material:add"></f7-icon>
     </f7-fab>
   </f7-page>

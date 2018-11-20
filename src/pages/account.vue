@@ -5,6 +5,7 @@
         <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
       </f7-nav-right>
     </f7-navbar>
+    
     <f7-card
     :title="account.username"
     >
@@ -12,7 +13,7 @@
       <p>身份证：{{account.pid}}</p>
       <p>性别：{{account.gender}}</p>
       <f7-block-title v-show="account.binders.length>0">帐户绑定情况</f7-block-title>
-      <f7-list v-if="account.binders.length>0">
+      <f7-list v-if="account.binders.length>0" simple-list>
       <f7-list-item swipeout v-for="(item,index) in account.binders" :key="index" :title="item.type" view="#main-view">
         <f7-swipeout-actions right>
           <f7-swipeout-button delete confirm-text="是否要删除该用户?"><f7-icon ios="f7:delete" md="material:delete"></f7-icon></f7-swipeout-button>

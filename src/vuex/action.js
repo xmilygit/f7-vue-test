@@ -1,6 +1,6 @@
 import axios from 'axios'
 import state from "./state";
-
+//axios.defaults.withCredentials = true
 export default {
     EditAccFromListById({ commit }, account, id) {
         commit('EditAccFromListById', account, id);
@@ -10,6 +10,16 @@ export default {
     },
     AddAccToList({ commit }, account) {
         commit('AddAccToList', account)
+    },
+    test({commit}){
+        axios({
+            method:'GET',
+            url:'/sys/cookies?username=111&password=111',
+            withCredentials: true
+        })
+        .then(function(res){
+            console.log(res.data)
+        })
     },
     GetAccList({ commit }, query) {
         if (!state.allowInfinite) return;

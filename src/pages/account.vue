@@ -26,7 +26,8 @@
         <f7-link icon-f7="lock"></f7-link>
   </f7-card-footer>
     </f7-card>
-
+<button @click="getcookies">login</button>
+<button @click="visi">look</button>
     <!-- <h3>current id:{{this.$f7route.params.id}}</h3>
     <h3>{{account}}</h3> -->
     <!-- <h3>idstr+:{{binders}}</h3> -->
@@ -65,7 +66,21 @@ export default {
     //   return linq.from(acclist).first(x => (x._id == currentid));
     // }
   },
-  methods: {}
+  methods: {
+    getcookies(){
+      this.$store.dispatch("test")
+    },
+    visi(){
+      this.$reqs({
+        methods:'GET',
+        url:'/sys/admin',
+        withCredentials: true
+      })
+      .then(function(res){
+        console.log(res.data)
+      })
+    }
+  }
 };
 </script>
 

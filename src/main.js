@@ -25,9 +25,9 @@ import App from './app';
 
 // Init F7 Vue Plugin
 Framework7.use(Framework7Vue)
-
+//axios.defaults.withCredentials = true
 axios.defaults.withCredentials-true;
-axios.defaults.baseURL="http://188.188.1.15:3000";//'http://localhost:3000/'
+axios.defaults.baseURL="http://192.168.123.151:3000";//"http://188.188.1.15:3000";//'http://localhost:3000/'
 ///axios.defaults.baseURL='http://192.168.123.194:3000/'
 Vue.prototype.$reqs=axios;
 

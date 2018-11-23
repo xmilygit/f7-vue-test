@@ -84,7 +84,15 @@ export default {
           console.log(res.data);
         });
       }else{
-        console.log('没有获取到token')
+        this.$reqs({
+          method: "POST",
+          url: "/sys/admin",
+          data: {
+            token: token
+          }
+        }).then(function(res) {
+          console.log(res.data);
+        });
       }
     }
   }

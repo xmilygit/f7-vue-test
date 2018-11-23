@@ -67,18 +67,25 @@ export default {
     // }
   },
   methods: {
-    getcookies(){
-      this.$store.dispatch("test")
+    getcookies() {
+      this.$store.dispatch("test");
     },
-    visi(){
-      this.$reqs({
-        methods:'GET',
-        url:'/sys/admin',
-        withCredentials: true
-      })
-      .then(function(res){
-        console.log(res.data)
-      })
+    visi() {
+      var token = sessionStorage.getItem("token");
+      if (token) {
+        console.log(token);
+        this.$reqs({
+          method: "POST",
+          url: "/sys/admin",
+          data: {
+            token: token
+          }
+        }).then(function(res) {
+          console.log(res.data);
+        });
+      }else{
+        console.log('没有获取到token')
+      }
     }
   }
 };

@@ -15,10 +15,10 @@ export default {
         axios({
             method:'GET',
             url:'/sys/cookies?username=111&password=111',
-            withCredentials: true
         })
         .then(function(res){
             console.log(res.data)
+            sessionStorage.setItem('token',res.data.token);
         })
     },
     GetAccList({ commit }, query) {

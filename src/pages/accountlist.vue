@@ -1,45 +1,58 @@
 <template>
-    <f7-page
-    infinite
-    :infinite-distance="50"
-    :infinite-preloader="false"
-    @infinite="loadMore"
-  >
+  <f7-page infinite :infinite-distance="50" :infinite-preloader="false" @infinite="loadMore">
     <f7-navbar title="用户" back-link="Back">
       <f7-nav-right>
         <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
       </f7-nav-right>
       <f7-subnavbar :inner="false">
-      <f7-searchbar
-      id="searchEL"
-        placeholder="搜索"
-        :custom-search=true 
-        :init=true       
-      >
-      <!-- <div slot="inner-start">Inner Start</div> -->
-  <f7-button fill small round color="green" slot="inner-end" style="margin-right:5px;" @click="search">搜索</f7-button>
-  <!-- <div slot="input-wrap-start">Input Wrap Start</div> -->
-  <!-- <div slot="input-wrap-end">Input Wrap End</div> -->
-  <!-- <div slot="before-inner">Before Inner</div> -->
-  <!-- <div slot="after-inner">After Inner</div> -->
-      
-      </f7-searchbar>
-    </f7-subnavbar>
+        <f7-searchbar id="searchEL" placeholder="搜索" :custom-search="true" :init="true">
+          <!-- <div slot="inner-start">Inner Start</div> -->
+          <f7-button
+            fill
+            small
+            round
+            color="green"
+            slot="inner-end"
+            style="margin-right:5px;"
+            @click="search"
+          >搜索</f7-button>
+          <!-- <div slot="input-wrap-start">Input Wrap Start</div> -->
+          <!-- <div slot="input-wrap-end">Input Wrap End</div> -->
+          <!-- <div slot="before-inner">Before Inner</div> -->
+          <!-- <div slot="after-inner">After Inner</div> -->
+        </f7-searchbar>
+      </f7-subnavbar>
     </f7-navbar>
     <f7-block-title>用户列表</f7-block-title>
     <f7-list>
-      <f7-list-item swipeout v-for="(item,index) in items" :key="index" :title="item.username"  :after="wxbinder(item.binders)" :link="`/account/${item._id}`" view="#main-view">
+      <f7-list-item
+        swipeout
+        v-for="(item,index) in items"
+        :key="index"
+        :title="item.username"
+        :after="wxbinder(item.binders)"
+        :link="`/account/${item._id}`"
+        view="#main-view"
+      >
         <f7-swipeout-actions right>
           <!-- <f7-swipeout-button>重置密码</f7-swipeout-button> -->
-          <f7-swipeout-button delete confirm-text="是否要删除该用户?"><f7-icon ios="f7:delete" md="material:delete"></f7-icon></f7-swipeout-button>
+          <f7-swipeout-button delete confirm-text="是否要删除该用户?">
+            <f7-icon ios="f7:delete" md="material:delete"></f7-icon>
+          </f7-swipeout-button>
           <!-- <f7-swipeout-button>修改</f7-swipeout-button> -->
         </f7-swipeout-actions>
       </f7-list-item>
     </f7-list>
-    <div v-show="showPreloader" id='preloader' class="text-align-center">
+    <div v-show="showPreloader" id="preloader" class="text-align-center">
       <f7-preloader></f7-preloader>
     </div>
-    <f7-fab position="right-bottom" slot="fixed" color="orange" href="/account/add" view="#main-view">
+    <f7-fab
+      position="right-bottom"
+      slot="fixed"
+      color="orange"
+      href="/account/add"
+      view="#main-view"
+    >
       <f7-icon ios="f7:add" md="material:add"></f7-icon>
     </f7-fab>
   </f7-page>
@@ -87,12 +100,13 @@ export default {
       "ChangeShowPreloader",
       "ChangeAllowInfinite"
     ]),
-    test(){
-      alert('afasdf')
+    test() {
+      alert("afasdf");
     },
     wxbinder(binders) {
-      if (binders.length > 0) return "已绑定";
-      else return "";
+      if (binders)
+        if (binders.length > 0) return "已绑定";
+        else return "";
     },
     search() {
       this.ClearAccList();

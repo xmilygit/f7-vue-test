@@ -7,6 +7,7 @@
     <f7-block-title>用户</f7-block-title>
     <f7-list>
       <f7-list-item link="/accountlist/" title="用户列表" view="#main-view" panel-close></f7-list-item>
+      <f7-list-item link="/account/import" title="导入用户" view="#main-view" panel-close></f7-list-item>
     </f7-list>
     <f7-block-title>功能开关</f7-block-title>
     <f7-list>

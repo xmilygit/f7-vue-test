@@ -12,6 +12,7 @@
     <f7-card-content>
       <p>身份证：{{account.pid}}</p>
       <p>性别：{{account.gender}}</p>
+      <p>出生日期:{{account.baseinfo.born}}</p>
       <!-- <f7-block-title v-show="account.binders">帐户绑定情况</f7-block-title>
       <f7-list v-if="account.binders.length>0" simple-list>
       <f7-list-item swipeout v-for="(item,index) in account.binders" :key="index" :title="item.type" view="#main-view">

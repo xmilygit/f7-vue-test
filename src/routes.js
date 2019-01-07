@@ -11,6 +11,10 @@ import accountlist from './pages/accountlist.vue';
 import account from './pages/account.vue'
 import addaccount from './pages/addaccount.vue'
 import importaccount from './pages/import.vue';
+import schooltermlist from './pages/schoolterm/list.vue';
+import schooltermadd from './pages/schoolterm/add.vue';
+import subjectlist from './pages/Subject/list.vue';
+import subjectadd from './pages/Subject/add.vue';
 import test1 from './pages/test.vue';
 import test2 from './pages/test2.vue';
 
@@ -33,7 +37,22 @@ export default [
     path:'/account/:id',
     component:account,
   },
-
+  {
+    path:'/mark/schoolterm/',
+    component:schooltermlist,
+  },
+  {
+    path:'/mark/schoolterm/add/',
+    component:schooltermadd,
+  },
+  {
+    path:'/subject/list/',
+    component:subjectlist,
+  },
+  {
+    path:'/subject/add/',
+    component:subjectadd,
+  },
   {
     path:'/test',
     component:test1,

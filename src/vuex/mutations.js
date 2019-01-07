@@ -1,4 +1,7 @@
 export default{
+    test(state){
+        alert('调用父mutaions成功')
+    },
     EditAccFromListById(state,account,id){
         ;
     },

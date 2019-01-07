@@ -19,6 +19,7 @@
             <f7-icon ios="f7:delete" md="material:delete"></f7-icon>
           </f7-swipeout-button>
           <f7-swipeout-button>修改</f7-swipeout-button>
+          <f7-swipeout-button @click="$f7router.navigate(`/subject/list/${item}`)">学科</f7-swipeout-button>
         </f7-swipeout-actions>
       </f7-list-item>
     </f7-list>
@@ -38,11 +39,22 @@
 </template>
 
 <script>
+// import {createNamespacedHelpers, mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import {mapState, mapGetters, mapMutations, mapActions } from "vuex";
+// const { mapActions:mapMarkActions} = createNamespacedHelpers('mark')
 export default {
     data(){
         return{
             items:['2018上学期','2018下学期']
         }
+    },
+    mounted(){
+      // 带模块的vuex测试
+      // alert(this.$store.state.mark.marktest)
+      this.termAdd()
+    },
+    methods:{
+       ...mapActions('mark',['termAdd'])
     }
 }
 </script>

@@ -19,6 +19,7 @@
             <f7-icon ios="f7:delete" md="material:delete"></f7-icon>
           </f7-swipeout-button>
           <f7-swipeout-button>修改</f7-swipeout-button>
+          <f7-swipeout-button @click="teacherselect(item)">任课教师</f7-swipeout-button>
         </f7-swipeout-actions>
       </f7-list-item>
     </f7-list>
@@ -34,15 +35,31 @@
     >
       <f7-icon ios="f7:add" md="material:add"></f7-icon>
     </f7-fab>
+    <teacherselect :open="openteacherselect" @close="openteacherselect=false" :target="subject"></teacherselect>
   </f7-page>    
 </template>
 
 <script>
+import teacherselect from '@/components/teacherlist.vue'
 export default {
     data(){
         return{
-            items:['语文','数学','英语']
+            items:['语文','数学','英语'],
+            openteacherselect:false,
+            subject:'',
         }
+    },
+    mounted(){
+      alert(this.$f7route.params.term)
+    },
+    components:{
+      teacherselect,
+    },
+    methods:{
+      teacherselect(subject){
+        this.openteacherselect=true;
+        this.subject=subject;
+      }
     }
 }
 </script>

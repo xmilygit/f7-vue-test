@@ -46,7 +46,7 @@ export default [
     component:schooltermadd,
   },
   {
-    path:'/subject/list/',
+    path:'/subject/list/:term',
     component:subjectlist,
   },
   {

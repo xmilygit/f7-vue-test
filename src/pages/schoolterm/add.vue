@@ -16,7 +16,17 @@
     clear-button
     required
     validate
-    v-model.trim="term"
+    v-model.trim="term.name"
+  ></f7-list-input>
+  <f7-list-input
+    label="开设课程"
+    floating-label
+    type="textarea"
+    placeholder="输入课程时一行一个"
+    clear-button
+    required
+    validate
+    v-model.trim="term.subject"
   ></f7-list-input>
   <f7-block>
       <f7-button fill color="green">保存</f7-button>
@@ -29,7 +39,10 @@
 export default {
   data(){
     return{
-      term:""
+      term:{
+        name:'',
+        subject:''
+      }
     }
   },
   methods:{

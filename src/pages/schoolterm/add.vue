@@ -29,13 +29,14 @@
     v-model.trim="term.subject"
   ></f7-list-input>
   <f7-block>
-      <f7-button fill color="green">保存</f7-button>
+      <f7-button fill color="green" @click="termAdd">保存</f7-button>
   </f7-block>
 </f7-list>
 </f7-page>
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data(){
     return{
@@ -45,8 +46,25 @@ export default {
       }
     }
   },
+  computed:{
+    ...mapState([
+      'showPreloader',
+      'dialog'
+    ])
+  },
+  watch:{
+    'this.$store.state.showPreloader':function(val,oldval){
+      // if(val)
+          // $f7.preloader.show('green')
+    }
+  },
+  mounted(){
+alert()
+  },
   methods:{
-
+    ...mapActions('mark',[
+      'termAdd'
+    ]),
   }
 };
 </script>

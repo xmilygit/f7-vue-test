@@ -1,8 +1,8 @@
 import axios from 'axios'
 const state={
     marktest:'test is ok',
-    showpreloader:false,
-    termSaveed=false,
+    // showpreloader:false,
+    // termSaveed=false,
 };
 const mutations = {
     // termAdd(state){
@@ -12,20 +12,32 @@ const mutations = {
         alert('这是子组件的test')
     },
     //设置loading图标显示变量
-    setShowPreloader(state,val){
-        state.showpreloader=val
-    },
-    //设置
+    // setShowPreloader(state,val){
+    //     state.showpreloader=val
+    // },
+    //设置学期保存操作状态
+    // setSaveTerm(state,val){
+    //     state.termSaveed=val;
+    // }
 };
 const actions = {
     //添加学期信息
     async termAdd({commit},term){
+        commit('ChangeShowPreloader',true,{root:true})
         axios.post("/sys/mark/termAdd/",term)
         .then(function(res){
             methods.termAdd_cb(res,commit)
         })
         .catch(function(err){
-            console.log("catch到的错误，" + err);
+            console.log("系统出错，" + err);
+            let errdialog = {
+                status: true,
+                title: "系统出错",
+                message: '错误' + err
+            }
+            //通知父状态关闭preloader
+            //通知父状态对话框显示
+            commit('Dialog', errdialog,{root:true})
         })
         //commit('test',null,{root:true})//根
         //commit('test')//自己
@@ -50,7 +62,7 @@ const methods={
                        
             return;
         }
-    }
+    },
 };
 export default {
     namespaced:true,

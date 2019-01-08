@@ -30,6 +30,7 @@
   ></f7-list-input>
   <f7-block>
       <f7-button fill color="green" @click="termAdd">保存</f7-button>
+      <f7-button fill color="green" @click="test">test</f7-button>
   </f7-block>
 </f7-list>
 </f7-page>
@@ -53,18 +54,26 @@ export default {
     ])
   },
   watch:{
-    'this.$store.state.showPreloader':function(val,oldval){
-      // if(val)
-          // $f7.preloader.show('green')
+    showPreloader:function(val,oldval){
+         if(val)
+           this.$f7.preloader.show('green')
+    },
+    'dialog.status':function(val,valold){
+      if(!val)return;
+      this.$f7.dialog.alert(this.dialog.message,this.dialog.title)
     }
   },
   mounted(){
-alert()
+//this.$f7.preloader.show('green')
+this.$f7.dialog.alert("a","t")
   },
   methods:{
     ...mapActions('mark',[
       'termAdd'
     ]),
+    test(){
+      alert(this.showPreloader)
+    }
   }
 };
 </script>

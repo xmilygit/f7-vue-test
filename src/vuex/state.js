@@ -1,7 +1,7 @@
 const state={
     AccList:[],
     allowInfinite:true,
-    showPreloader:true,
+    showPreloader:false,
     lastid:'',
     dialog:{
         status:false,

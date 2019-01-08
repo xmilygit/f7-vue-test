@@ -29,6 +29,7 @@ const actions = {
             methods.termAdd_cb(res,commit)
         })
         .catch(function(err){
+            commit('ChangeShowPreloader',false,{root:true})
             console.log("系统出错，" + err);
             let errdialog = {
                 status: true,

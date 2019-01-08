@@ -18,7 +18,7 @@
           <f7-swipeout-button delete confirm-text="是否要删除该用户?">
             <f7-icon ios="f7:delete" md="material:delete"></f7-icon>
           </f7-swipeout-button>
-          <f7-swipeout-button>修改</f7-swipeout-button>
+          <f7-swipeout-button @click="$f7.preloader.show('green')">修改</f7-swipeout-button>
           <f7-swipeout-button @click="$f7router.navigate(`/subject/list/${item}`)">学科</f7-swipeout-button>
         </f7-swipeout-actions>
       </f7-list-item>

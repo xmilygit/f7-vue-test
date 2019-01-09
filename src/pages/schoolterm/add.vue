@@ -14,8 +14,7 @@
         type="text"
         placeholder="学期名称"
         clear-button
-        required
-        validate
+        
         name="termname"
         v-model.trim="term.name"
       ></f7-list-input>
@@ -39,6 +38,8 @@
 </template>
 
 <script>
+import {required} from 'vuelidate'
+
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data() {
@@ -48,6 +49,13 @@ export default {
         subject: ""
       }
     };
+  },
+  validations:{
+    term:{
+      name:{
+        required
+      }
+    }
   },
   computed: {
     ...mapState(["showPreloader", "dialog"])
@@ -70,12 +78,13 @@ export default {
     ...mapActions("mark", ["termAdd"]),
     ...mapMutations(["Dialog"]),
     save(){
-      debugger
       //alert(this.$f7.form.convertToData('#my-form'))
-      this.$f7.input.validateInputs('page-content')
+      //this.$f7.input.validateInputs('page-content')
+      alert(this.$v.$invalid);
     },
     test() {
-      alert(this.showPreloader);
+      
+      alert(this.$v.$invalid);
     },
     showloading(val) {
       if (val) this.$f7.preloader.show("green");

@@ -1,6 +1,9 @@
 // Import Vue
 import Vue from 'vue';
 
+// Import Vuelidate
+import Vuelidate from 'vuelidate'
+
 //Import vuex
 import store from './vuex/index.js';
 
@@ -22,6 +25,8 @@ import AppStyles from './css/app.css';
 
 // Import App Component
 import App from './app';
+import vuex from './vuex/index.js';
+
 
 // Init F7 Vue Plugin
 Framework7.use(Framework7Vue)
@@ -30,7 +35,7 @@ axios.defaults.withCredentials-true;
 axios.defaults.baseURL="http://188.188.1.15:3000";//"http://192.168.123.151:3000";//'http://localhost:3000/'
 ///axios.defaults.baseURL='http://192.168.123.194:3000/'
 Vue.prototype.$reqs=axios;
-
+Vue.use(Vuelidate)
 
 // Init App
 new Vue({

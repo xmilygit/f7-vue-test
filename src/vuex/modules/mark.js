@@ -2,7 +2,7 @@ import axios from 'axios'
 const state={
     marktest:'test is ok',
     // showpreloader:false,
-    // termSaveed=false,
+    termSaveed:false,
 };
 const mutations = {
     // termAdd(state){
@@ -16,9 +16,9 @@ const mutations = {
     //     state.showpreloader=val
     // },
     //设置学期保存操作状态
-    // setSaveTerm(state,val){
-    //     state.termSaveed=val;
-    // }
+    setSaveTerm(state,val){
+        state.termSaveed=val;
+    }
 };
 const actions = {
     //添加学期信息
@@ -36,7 +36,6 @@ const actions = {
                 title: "系统出错",
                 message: '错误' + err
             }
-            //通知父状态关闭preloader
             //通知父状态对话框显示
             commit('Dialog', errdialog,{root:true})
         })
@@ -50,19 +49,21 @@ const getters = {
 };
 const methods={
     termAdd_cb(res,commit){
+        commit('ChangeShowPreloader',false,{root:true})
         if (res.data.error) {
             let errdialog = {
                 status: true,
                 title: "出错了",
                 message: '错误' + res.data.message
             }
-            //关闭加载器
-            //commit('ChangeShowPreloader', false);
-            //commit('Dialog', errdialog)
-            //commit('test')
-                       
+            commit('Dialog', errdialog,{root:true})
             return;
         }
+        commit('Dialog', {
+            status:true,
+            title:'提示',
+            message:'保存成功!'            
+        },{root:true})
     },
 };
 export default {

@@ -7,17 +7,20 @@
     </f7-navbar>
 
     <f7-block-title>添加学期</f7-block-title>
+    <form id="myform">
     <f7-list no-hairlines-md>
       <f7-list-input
-        label="学期名称"
-        floating-label
-        type="text"
-        placeholder="学期名称"
-        clear-button
-        
-        name="termname"
-        v-model.trim="term.name"
-      ></f7-list-input>
+    label="学期名称"
+    floating-label
+    type="text"
+    placeholder="学期名称"
+    clear-button
+    required
+    validate
+    name="termname"
+    :value="term.name"
+    @input="term.name = $event.target.value"
+  ></f7-list-input>
       <f7-list-input
         label="开设课程"
         floating-label
@@ -27,35 +30,27 @@
         required
         validate
         name="subject"
-        v-model.trim="term.subject"
+        :value="term.subject"
+        @input="term.subject=$event.target.value"
       ></f7-list-input>
       <f7-block>
-        <f7-button fill color="green" @click="termAdd">保存</f7-button>
-        <f7-button fill color="green" @click="save">test</f7-button>
+        <f7-button fill color="green" @click="save">保存</f7-button>
       </f7-block>
     </f7-list>
+    </form>
   </f7-page>
 </template>
 
 <script>
-import {required} from 'vuelidate'
-
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
       term: {
-        name: "",
-        subject: ""
+        name:'',
+        subject:'',
       }
     };
-  },
-  validations:{
-    term:{
-      name:{
-        required
-      }
-    }
   },
   computed: {
     ...mapState(["showPreloader", "dialog"])
@@ -80,11 +75,14 @@ export default {
     save(){
       //alert(this.$f7.form.convertToData('#my-form'))
       //this.$f7.input.validateInputs('page-content')
-      alert(this.$v.$invalid);
+      // alert(this.$v.$invalid);
+      if(document.forms['myform'].reportValidity())
+      alert('没错')
+      else
+      alert("有错")
     },
-    test() {
-      
-      alert(this.$v.$invalid);
+    test(){
+
     },
     showloading(val) {
       if (val) this.$f7.preloader.show("green");

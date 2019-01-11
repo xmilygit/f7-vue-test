@@ -17,6 +17,7 @@ import subjectlist from './pages/Subject/list.vue';
 import subjectadd from './pages/Subject/add.vue';
 import test1 from './pages/test.vue';
 import test2 from './pages/test2.vue';
+import test3 from './pages/schoolterm/test.vue';
 
 export default [
   {
@@ -44,6 +45,10 @@ export default [
   {
     path:'/mark/schoolterm/add/',
     component:schooltermadd,
+  },
+  {
+    path:'/mark/schoolterm/test/',
+    component:test3,
   },
   {
     path:'/subject/list/:term',

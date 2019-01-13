@@ -47,16 +47,12 @@ export default [
     component:schooltermadd,
   },
   {
+    path:'/mark/schoolterm/edit/index_:index',
+    component:schooltermadd,
+  },
+  {
     path:'/mark/schoolterm/test/',
     component:test3,
-  },
-  {
-    path:'/subject/list/:term',
-    component:subjectlist,
-  },
-  {
-    path:'/subject/add/',
-    component:subjectadd,
   },
   {
     path:'/test',

@@ -17,7 +17,8 @@
           clear-button
           required
           validate
-          name="term"
+          :value="formdata.term"
+          @input="formdata.term=$event.target.value"
         ></f7-list-input>
         <f7-list-input
           label="开设课程"
@@ -27,7 +28,8 @@
           clear-button
           required
           validate
-          name="subject"
+          :value="formdata.subject"
+          @input="formdata.subject=$event.target.value"
         ></f7-list-input>
         <f7-block>
           <f7-button fill color="green" @click="save">保存</f7-button>
@@ -44,14 +46,20 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
-      editindex:this.$f7route.params.index||undefined
+      editindex:this.$f7route.params.index||undefined,
+      formdata:{
+        id:undefined,
+        term:'',
+        subject:''
+      }
     };
   },
   components: { 
     LoadingDialog
   },
   computed: {
-    ...mapState(["showPreloader", "dialog"])
+    ...mapState(["showPreloader", "dialog"]),
+    ...mapState('mark',['termlist']),
   },
   watch: {
     /*
@@ -71,19 +79,37 @@ export default {
     // if(this.$7route.params.id)
     // this.editid=this.$7route.params.id
       // this.editid=this.$7route.params.id?this.$7route.params.id:0,
-      alert(this.editindex)
+      if(this.editindex){
+         //填充信息
+         //console.log(this.termlist[this.editindex])
+        //  {
+        //    _id:this.formdata.id,
+        //    term:this.formdata.term,
+        //    subject:this.formdata.subject,
+        //   } = this.termlist[this.editindex];
+        let {_id:termid,term:termname,subject:termsubject} = this.termlist[this.editindex];
+        this.formdata.id=termid;
+        this.formdata.term=termname
+        this.formdata.subject=termsubject.join('\n')
+      }
   },
   methods: {
-    ...mapActions("mark", ["termAdd"]),
-    ...mapMutations(["Dialog"]),
+    ...mapActions("mark", ["termAdd",'editterm']),
+    ...mapMutations(["ChangeDialog"]),
     save() {
       //alert(this.$f7.form.convertToData('#my-form'))
       //this.$f7.input.validateInputs('page-content')
       // alert(this.$v.$invalid);
-      let termdata = this.$f7.form.convertToData("#myform");
+      //采用数据绑定，注释掉下面这句
+      //let termdata = this.$f7.form.convertToData("#myform");
       if (!document.forms["myform"].reportValidity()) return;
-      termdata.subject = termdata.subject.split("\n");
-      this.termAdd(termdata);
+      //this.formdata.subject = this.formdata.subject.split("\n");
+      if(this.editindex){
+        this.formdata.id=this.termlist[this.editindex]._id;
+        this.editterm(this.formdata)
+        return;
+      }
+      this.termAdd(this.formdata);
     },
     test() {},
     dialogclose() {

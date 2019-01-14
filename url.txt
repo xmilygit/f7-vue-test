@@ -5,3 +5,6 @@ Vue+Vuex一步一步入坑指南
 https://www.jianshu.com/p/3164c1309681
 vuex模块层级调用，及命名空间
 https://www.jianshu.com/p/80203ed29549
+html5表单验证
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/reportValidity
+https://www.the-art-of-web.com/html/html5-form-validation/

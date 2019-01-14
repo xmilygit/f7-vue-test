@@ -42,7 +42,7 @@ const actions = {
                 message: '错误' + err
             }
             //通知父状态对话框显示
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
         })
         //commit('test',null,{root:true})//根
         //commit('test')//自己
@@ -64,7 +64,7 @@ const actions = {
                 message: '错误' + err
             }
             //通知父状态对话框显示
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
         })
     },
     //删除学期
@@ -83,7 +83,26 @@ const actions = {
                 message: '错误' + err
             }
             //通知父状态对话框显示
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
+        })
+    },
+    //更新学期数据
+    async editterm({commit},term){
+        commit('ChangeShowPreloader',true,{root:true})
+        axios.post('/sys/mark/termEdit/',{term:term})
+        .then(function(res){
+            methods.editterm_cb(res,commit)
+        })
+        .catch(function(err){
+            commit('ChangeShowPreloader',false,{root:true})
+            console.log("系统出错，" + err);
+            let errdialog = {
+                status: true,
+                title: "系统出错",
+                message: '错误' + err
+            }
+            //通知父状态对话框显示
+            commit('ChangeDialog', errdialog,{root:true})
         })
     }
 };
@@ -99,10 +118,10 @@ const methods={
                 title: "出错了",
                 message: '错误' + res.data.message
             }
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
             return;
         }
-        commit('Dialog', {
+        commit('ChangeDialog', {
             status:true,
             title:'提示',
             message:'保存成功!'            
@@ -116,7 +135,7 @@ const methods={
                 title: "出错了",
                 message: '错误' + res.data.message
             }
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
             return;
         }
         commit('setTermList',res.data.result)
@@ -129,13 +148,30 @@ const methods={
                 title: "出错了",
                 message: '错误' + res.data.message
             }
-            commit('Dialog', errdialog,{root:true})
+            commit('ChangeDialog', errdialog,{root:true})
             return;
         }
-        commit('Dialog', {
+        commit('ChangeDialog', {
             status:true,
             title:'提示',
             message:'删除成功!'            
+        },{root:true})
+    },
+    editterm_cb(res,commit){
+        commit('ChangeShowPreloader',false,{root:true})
+        if (res.data.error) {
+            let errdialog = {
+                status: true,
+                title: "出错了",
+                message: '错误' + res.data.message
+            }
+            commit('ChangeDialog', errdialog,{root:true})
+            return;
+        }
+        commit('ChangeDialog', {
+            status:true,
+            title:'提示',
+            message:'更新成功!'            
         },{root:true})
     }
 };

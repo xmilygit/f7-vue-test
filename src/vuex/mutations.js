@@ -29,7 +29,7 @@ export default{
     ChangeShowPreloader(state,value){
         state.showPreloader=value;
     },
-    Dialog(state,dialog){
+    ChangeDialog(state,dialog){
         state.dialog=dialog;
     }
 }

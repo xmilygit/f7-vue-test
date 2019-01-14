@@ -41,7 +41,7 @@ export default {
                         message: '错误' + res.data.message
                     }
                     commit('ChangeShowPreloader', false);
-                    commit('Dialog', errdialog)
+                    commit('ChangeDialog', errdialog)
                     commit('ChangeAllowInfinite', true);
                     return;
                 }
@@ -54,7 +54,7 @@ export default {
                         message: '未找到任何相关记录'
                     }
                     commit('ChangeShowPreloader', false);
-                    commit('Dialog', errdialog)
+                    commit('ChangeDialog', errdialog)
                     commit('ChangeAllowInfinite', true);
                     return;
                 }
@@ -77,7 +77,7 @@ export default {
                     title: '系统出错',
                     message: '错误：' + err
                 }
-                commit('Dialog', errdialog);
+                commit('ChangeDialog', errdialog);
                 commit('ChangeAllowInfinite', true);
             })
     }

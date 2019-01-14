@@ -105,15 +105,14 @@ export default {
       if (!document.forms["myform"].reportValidity()) return;
       //this.formdata.subject = this.formdata.subject.split("\n");
       if(this.editindex){
-        this.formdata.id=this.termlist[this.editindex]._id;
+        // this.formdata.id=this.termlist[this.editindex]._id;
         this.editterm(this.formdata)
         return;
       }
       this.termAdd(this.formdata);
     },
-    test() {},
     dialogclose() {
-      this.Dialog({ status: false });
+      this.ChangeDialog({ status: false });
     }
     /*
     showloading(val) {

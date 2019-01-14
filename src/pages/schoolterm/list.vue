@@ -68,13 +68,13 @@ export default {
   },
   methods: {
     ...mapActions("mark", ["getTermList","delterm"]),
-    ...mapMutations(["Dialog"]),
+    ...mapMutations(["ChangeDialog"]),
     // showloading(val) {
     //   if (val) this.$f7.preloader.show("green");
     //   else this.$f7.preloader.hide();
     // },
     dialogclose(){
-      this.Dialog({status:false})
+      this.ChangeDialog({status:false})
     },
     delschoolterm(item){
       this.delterm({id:item._id,term:item.term})

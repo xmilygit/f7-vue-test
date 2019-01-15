@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import LoadingDialog from "@/components/loading.vue";
+import LoadingDialog from "@/components/loadingdialog.vue"
 export default {
   data() {
     return {

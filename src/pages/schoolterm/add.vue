@@ -36,13 +36,13 @@
         </f7-block>
       </f7-list>
     </form>
-    <LoadingDialog  :showPreloader="showloading" :showDialog="showdialog"></LoadingDialog>
+    <LoadingDialog></LoadingDialog>
   </f7-page>
 </template>
 
 <script>
 import LoadingDialog from "@/components/loadingdialog.vue";
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -52,46 +52,21 @@ export default {
         term:'',
         subject:''
       },
-      showloading:false,
-      showdialog:false,
     };
+  },
+  computed:{
+    ...mapState('mark',[
+      "termlist",
+    ])
   },
   components: { 
     LoadingDialog
   },
-  computed: {
-    //...mapState(["showPreloader", "dialog"]),
-    ...mapState({
-      asyncResult:'result'
-    }),
-    ...mapState('mark',['termlist']),
-  },
-  watch: {
-    /*
-    showPreloader: function(val, oldval) {
-      if (val) this.showloading(true);
-      else this.showloading(false);
-    },
-    "dialog.status": function(val, valold) {
-      if (!val) return;
-      this.showdialog(this.dialog)
-    }
-    */
-  },
   mounted() {
-    //this.$f7.preloader.show('green')
-    //this.$f7.dialog.alert("a","t")
     // if(this.$7route.params.id)
     // this.editid=this.$7route.params.id
-      // this.editid=this.$7route.params.id?this.$7route.params.id:0,
+    // this.editid=this.$7route.params.id?this.$7route.params.id:0,
       if(this.editindex){
-         //填充信息
-         //console.log(this.termlist[this.editindex])
-        //  {
-        //    _id:this.formdata.id,
-        //    term:this.formdata.term,
-        //    subject:this.formdata.subject,
-        //   } = this.termlist[this.editindex];
         let {_id:termid,term:termname,subject:termsubject} = this.termlist[this.editindex];
         this.formdata.id=termid;
         this.formdata.term=termname
@@ -100,38 +75,16 @@ export default {
   },
   methods: {
     ...mapActions("mark", ["termAdd",'editterm']),
-    //...mapMutations(["ChangeDialog"]),
     save() {
-      //alert(this.$f7.form.convertToData('#my-form'))
-      //this.$f7.input.validateInputs('page-content')
-      // alert(this.$v.$invalid);
       //采用数据绑定，注释掉下面这句
       //let termdata = this.$f7.form.convertToData("#myform");
       if (!document.forms["myform"].reportValidity()) return;
-      //this.formdata.subject = this.formdata.subject.split("\n");
       if(this.editindex){
-        // this.formdata.id=this.termlist[this.editindex]._id;
         this.editterm(this.formdata)
         return;
       }
       this.termAdd(this.formdata);
     },
-    dialogclose() {
-      //this.ChangeDialog({ status: false,message:'',title:'' });
-      this.dialog.status=false;
-    }
-    /*
-    showloading(val) {
-      if (val) this.$f7.preloader.show("green");
-      else this.$f7.preloader.hide();
-    },
-    showdialog(dialoginfo) {
-      let self = this;
-      this.$f7.dialog.alert(dialoginfo.message, dialoginfo.title, function() {
-        self.Dialog({ status: false });
-      });
-    }
-    */
   }
 };
 </script>

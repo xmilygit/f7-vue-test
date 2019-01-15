@@ -9,6 +9,7 @@ const state={
         message:''
     },
     result:{
+        show:false,
         error:false,
         message:'',
         title:'',

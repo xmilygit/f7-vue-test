@@ -35,6 +35,8 @@ export default{
     //改进异步执行结果反馈
     setAsyncResult(state,res){
         state.result=res;
-    }
-
+    },
+    setDialogHidde(state){
+        state.result.show=false;
+    },
 }

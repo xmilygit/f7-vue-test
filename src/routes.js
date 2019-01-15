@@ -13,8 +13,7 @@ import addaccount from './pages/addaccount.vue'
 import importaccount from './pages/import.vue';
 import schooltermlist from './pages/schoolterm/list.vue';
 import schooltermadd from './pages/schoolterm/add.vue';
-// import subjectlist from './pages/Subject/list.vue';
-// import subjectadd from './pages/Subject/add.vue';
+import subjectlist from './pages/Subject/list.vue'
 import test1 from './pages/test.vue';
 import test2 from './pages/test2.vue';
 import test3 from './pages/schoolterm/test.vue';
@@ -53,6 +52,10 @@ export default [
   {
     path:'/mark/schoolterm/test/',
     component:test3,
+  },
+  {
+    path:'/subject/list/index_:term',
+    component:subjectlist,
   },
   {
     path:'/test',

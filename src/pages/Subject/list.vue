@@ -41,6 +41,7 @@
 
 <script>
 import teacherselect from '@/components/teacherlist.vue'
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
     data(){
         return{

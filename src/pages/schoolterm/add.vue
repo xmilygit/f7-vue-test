@@ -36,12 +36,12 @@
         </f7-block>
       </f7-list>
     </form>
-    <LoadingDialog @dialogclose="dialogclose" :showPreloader="showPreloader" :showDialog="dialog"></LoadingDialog>
+    <LoadingDialog  :showPreloader="showloading" :showDialog="showdialog"></LoadingDialog>
   </f7-page>
 </template>
 
 <script>
-import LoadingDialog from "@/components/loading.vue";
+import LoadingDialog from "@/components/loadingdialog.vue";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data() {
@@ -51,14 +51,19 @@ export default {
         id:undefined,
         term:'',
         subject:''
-      }
+      },
+      showloading:false,
+      showdialog:false,
     };
   },
   components: { 
     LoadingDialog
   },
   computed: {
-    ...mapState(["showPreloader", "dialog"]),
+    //...mapState(["showPreloader", "dialog"]),
+    ...mapState({
+      asyncResult:'result'
+    }),
     ...mapState('mark',['termlist']),
   },
   watch: {
@@ -95,7 +100,7 @@ export default {
   },
   methods: {
     ...mapActions("mark", ["termAdd",'editterm']),
-    ...mapMutations(["ChangeDialog"]),
+    //...mapMutations(["ChangeDialog"]),
     save() {
       //alert(this.$f7.form.convertToData('#my-form'))
       //this.$f7.input.validateInputs('page-content')

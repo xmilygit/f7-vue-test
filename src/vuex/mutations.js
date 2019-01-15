@@ -31,5 +31,10 @@ export default{
     },
     ChangeDialog(state,dialog){
         state.dialog=dialog;
+    },
+    //改进异步执行结果反馈
+    setAsyncResult(state,res){
+        state.result=res;
     }
+
 }

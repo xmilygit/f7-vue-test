@@ -112,7 +112,8 @@ export default {
       this.termAdd(this.formdata);
     },
     dialogclose() {
-      this.ChangeDialog({ status: false });
+      //this.ChangeDialog({ status: false,message:'',title:'' });
+      this.dialog.status=false;
     }
     /*
     showloading(val) {

@@ -1,5 +1,6 @@
 <template>
   <f7-page>
+    <LoadingDialog @dialogclose="dialogclose" :showDialog="dialog"></LoadingDialog>
     <form id="form1">
     <f7-block-title>Floating Labels (MD-theme only)</f7-block-title>
 <f7-list no-hairlines-md>
@@ -132,26 +133,46 @@
     <f7-icon icon="demo-list-icon" slot="media"></f7-icon>
   </f7-list-input>
   <f7-list-button @click="clk">abcd</f7-list-button>
+  <f7-list-button @click="s">show dialog</f7-list-button>
+  <f7-list-button @click="h">hide dialog</f7-list-button>
 </f7-list>
     </form>
   </f7-page>
 </template>
 
 <script>
+import LoadingDialog from "@/components/loading.vue";
 export default {
   data() {
     return {
-      val1: ""
+      val1: "",
+      dialog:{
+        status:false,
+        message:'ALERT显示',
+        title:'测试',
+      }
     };
   },
   mounted(){
     let temp1={input1:'abcd',input2:'123141',input3:'zxc',input4:'090'}
     //this.$f7.form.fillFromData('#form1', temp1)
   },
+  components:{
+    LoadingDialog,
+  },
   methods: {
     clk(){
       console.log(this.$f7.form.convertToData("#form1"))
       this.val1='asdfasfsf'
+    },
+    dialogclose(){
+      alert("close alert")
+    },
+    s(){
+      this.dialog={status:true,message:'父组件传递的信息',title:'父组件ALERT'}
+    },
+    h(){
+      this.dialog.status=false;
     }
   }
 };

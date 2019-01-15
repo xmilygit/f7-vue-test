@@ -7,6 +7,13 @@ const state={
         status:false,
         title:'',
         message:''
+    },
+    result:{
+        error:false,
+        message:'',
+        title:'',
+        result:'',
+        from:'',
     }
 }
 

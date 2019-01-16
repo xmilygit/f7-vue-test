@@ -21,7 +21,7 @@
     <!-- <div v-show="showPreloader" id="preloader" class="text-align-center">
       <f7-preloader></f7-preloader>
     </div> -->
-    <teacherselect :open="openteacherselect" @close="openteacherselect=false" :target="subject"></teacherselect>
+    <teacherselect :open="openteacherselect" @close="openteacherselect=false" :items="teachersubject"></teacherselect>
   </f7-page>    
 </template>
 
@@ -31,10 +31,10 @@ import { mapState, mapMutations, mapActions } from "vuex";
 export default {
     data(){
         return{
-            //items:['语文','数学','英语'],
+            subjectitems:[],
             openteacherselect:false,
             subjectindex:this.$f7route.params.term||undefined,
-            subject:''
+            //subject:''
         }
     },
     mounted(){
@@ -42,7 +42,7 @@ export default {
 
     },
     computed:{
-      ...mapState('mark',['termlist']),
+      ...mapState('mark',['termlist','teachersubject','allteacher']),
       items:function(){
         return this.termlist[this.subjectindex].subject
       }
@@ -51,9 +51,16 @@ export default {
       teacherselect,
     },
     methods:{
+      ...mapActions('mark',{
+        getsubjectteacher:'getTeacherBySubject',
+        getallteacher:'getAllTeacher'
+      }),
       teacherselect(subject){
         this.openteacherselect=true;
-        this.subject=subject;
+        this.getsubjectteacher({subject:subject,term:this.termlist[this.subjectindex].term});
+        this.getallteacher();
+        alert(this.teachersubject.length+":::"+this.allteacher)
+        //this.subject=subject;
       }
     }
 }

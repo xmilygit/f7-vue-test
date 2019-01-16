@@ -8,3 +8,5 @@ https://www.jianshu.com/p/80203ed29549
 html5表单验证
 https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/reportValidity
 https://www.the-art-of-web.com/html/html5-form-validation/
+mongodb数组查询
+https://blog.csdn.net/leshami/article/details/55049891

@@ -1,8 +1,11 @@
 import axios from 'axios'
+import { stat } from 'fs';
 const state = {
     marktest: 'test is ok',
     termSaveed: false,
     termlist: [],
+    teachersubject:[],
+    allteacher:[],
 };
 const mutations = {
     test(state) {
@@ -12,6 +15,14 @@ const mutations = {
     setTermList(state, val) {
         state.termlist = val
     },
+    //设置学科任教教师列表
+    setTeacherSubject(state,val){
+        state.teachersubject=val
+    },
+    //设置所有教师列表
+    setTeacherList(state,val){
+        state.allteacher=val;
+    }
 };
 const actions = {
     //添加学期信息
@@ -94,6 +105,46 @@ const actions = {
                     from: '更新学期'
                 }, { root: true })
             })
+    },
+    //根据学科返回任课教师列表
+    async getTeacherBySubject({commit},{subject,term}){
+        commit('ChangeShowPreloader',true,{root:true})
+        axios.get('/sys/mark/getTeacherBySubject/?subject='+subject+'&term='+term)
+        .then(function(res){
+            methods.getTeacherBySubject_cb(res,commit)
+        })
+        .catch(function(err){
+            commit('ChangeShowPreloader', false, { root: true })
+                console.log("系统出错，" + err);
+                commit('setAsyncResult', {
+                    show:true,
+                    error: true,
+                    message: "错误：服务器未执行操作（" + err + "）",
+                    title: '系统出错',
+                    result: '',
+                    from: '获取学科任课教师'
+                }, { root: true })
+        })
+    },
+    //获取所有教师列表
+    async getAllTeacher({commit}){
+        commit('ChangeShowPreloader',true,{root:true})
+        axios.get('/sys/mark/getAllTeacher/')
+        .then(function(res){
+            methods.getAllTeacher_cb(res,commit)
+        })
+        .catch(function(err){
+            commit('ChangeShowPreloader', false, { root: true })
+                console.log("系统出错，" + err);
+                commit('setAsyncResult', {
+                    show:true,
+                    error: true,
+                    message: "错误：服务器未执行操作（" + err + "）",
+                    title: '系统出错',
+                    result: '',
+                    from: '获取所有教师'
+                }, { root: true })
+        })
     }
 };
 const getters = {
@@ -180,6 +231,36 @@ const methods = {
             result: res.data,
             from: '更新学期回调'
         }, { root: true })
+    },
+    getTeacherBySubject_cb(res,commit){
+        commit('ChangeShowPreloader', false, { root: true })
+        if (res.data.error) {
+            commit('setAsyncResult', {
+                show:true,
+                error: true,
+                message: "错误：服务器执行了操作，但出错了。（" + res.data.message + "）",
+                title: '出错了',
+                result: '',
+                from: '获取学科任课教师回调'
+            }, { root: true })
+            return;
+        }
+        commit('setTeacherSubject',res.data.result)
+    },
+    getAllTeacher_cb(res,commit){
+        commit('ChangeShowPreloader', false, { root: true })
+        if (res.data.error) {
+            commit('setAsyncResult', {
+                show:true,
+                error: true,
+                message: "错误：服务器执行了操作，但出错了。（" + res.data.message + "）",
+                title: '出错了',
+                result: '',
+                from: '获取所有教师回调'
+            }, { root: true })
+            return;
+        }
+        commit('setTeacherList',res.data.result)
     }
 };
 export default {

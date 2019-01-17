@@ -27,6 +27,7 @@
 
 <script>
 import teacherselect from '@/components/teacherlist.vue'
+import linq from 'linq'
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
     data(){
@@ -39,7 +40,7 @@ export default {
     },
     mounted(){
       //alert(this.$f7route.params.term)
-
+      this.getallteacher();
     },
     computed:{
       ...mapState('mark',['termlist','teachersubject','allteacher']),
@@ -55,11 +56,12 @@ export default {
         getsubjectteacher:'getTeacherBySubject',
         getallteacher:'getAllTeacher'
       }),
-      teacherselect(subject){
+      async teacherselect(subject){
         this.openteacherselect=true;
-        this.getsubjectteacher({subject:subject,term:this.termlist[this.subjectindex].term});
-        this.getallteacher();
-        alert(this.teachersubject.length+":::"+this.allteacher)
+        await this.getsubjectteacher({subject:subject,term:this.termlist[this.subjectindex].term});
+        linq.from(this.allteacher)
+        .where('x=>x.username')
+        //alert(this.teachersubject.length+":::"+this.allteacher)
         //this.subject=subject;
       }
     }

@@ -40,7 +40,6 @@ export default {
   },
   mounted() {
     this.getAllTeacher();
-    alert(this.items.length+":::"+this.allteacher.length)
   },
   methods: {
     ...mapActions("mark", ["getAllTeacher"]),

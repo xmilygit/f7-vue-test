@@ -141,6 +141,7 @@
 </template>
 
 <script>
+import linq from 'linq';
 import LoadingDialog from "@/components/loadingdialog.vue"
 export default {
   data() {
@@ -155,6 +156,9 @@ export default {
   },
   mounted(){
     let temp1={input1:'abcd',input2:'123141',input3:'zxc',input4:'090'}
+    let list=linq.range(1, 3).select("x=>x")
+
+    console.log(list)
     //this.$f7.form.fillFromData('#form1', temp1)
   },
   components:{

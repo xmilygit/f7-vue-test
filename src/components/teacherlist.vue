@@ -9,9 +9,11 @@
       <f7-block>
         <f7-list>
           <f7-list-item
-            v-for="(item,index) in allteacher"
+            v-for="(item,index) in items"
             :key="index"
             checkbox
+            @change="checkvalidata"
+            :checked="item.check"
             :value="item._id"
             :title="item.username"
           ></f7-list-item>
@@ -31,18 +33,32 @@ export default {
       //     {id:'214131313',name:'徐明2'},
       //     {id:'214131313',name:'徐明3'}
       //     ],
-      openself: false
+      openself: false,
+      selectedteacher:this.selected
+      //selected:[],
     };
   },
-  props: ["open", "items"],
+  props: ["open", "items","selected"],
   computed: {
-    ...mapState("mark", ["allteacher"])
+    //...mapState("mark", ["allteacher"])
   },
   mounted() {
-    this.getAllTeacher();
+    //this.getAllTeacher();
   },
   methods: {
-    ...mapActions("mark", ["getAllTeacher"]),
+    //...mapActions("mark", ["getAllTeacher"]),
+    checkvalidata:function(evt){
+      //alert(evt.target.checked+"::::"+evt.target.value+":::"+evt.target.title)
+      //console.log(evt)
+      //console.log(evt.target.parentNode.children[3].innerText)
+      console.log(this.selectedteacher)
+      if(evt.target.checked){
+        this.selectedteacher.push(evt.target.parentNode.children[3].innerText)
+      }else{
+        this.selectedteacher.splice(this.selectedteacher.indexOf(evt.target.parentNode.children[3].innerText), 1);      
+      }
+      console.log(this.selectedteacher)
+    },
   }
   // watch:{
   //     open:function(val,oldval){

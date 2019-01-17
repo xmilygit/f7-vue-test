@@ -28,22 +28,25 @@ const linq=require('linq');
 export default {
   data() {
     return {
-      // items:[
-      //     {id:'214131313',name:'徐明1'},
-      //     {id:'214131313',name:'徐明2'},
-      //     {id:'214131313',name:'徐明3'}
-      //     ],
       openself: false,
-      selectedteacher:this.selected
-      //selected:[],
+      selectedteacher:[],
+      items:[]
     };
   },
-  props: ["open", "items","selected"],
+  props: ["open", "select","selected"],
   computed: {
     //...mapState("mark", ["allteacher"])
   },
   mounted() {
     //this.getAllTeacher();
+  },
+  watch:{
+    'selected':function(val){
+      this.selectedteacher=val
+    },
+    'select':function(val){
+      this.items=val;
+    }
   },
   methods: {
     //...mapActions("mark", ["getAllTeacher"]),
@@ -53,9 +56,9 @@ export default {
       //console.log(evt.target.parentNode.children[3].innerText)
       console.log(this.selectedteacher)
       if(evt.target.checked){
-        this.selectedteacher.push(evt.target.parentNode.children[3].innerText)
+        this.selectedteacher.push(evt.target.parentNode.children[3].innerText.replace('\n',''))
       }else{
-        this.selectedteacher.splice(this.selectedteacher.indexOf(evt.target.parentNode.children[3].innerText), 1);      
+        this.selectedteacher.splice(this.selectedteacher.indexOf(evt.target.parentNode.children[3].innerText.replace('\n','')), 1);      
       }
       console.log(this.selectedteacher)
     },

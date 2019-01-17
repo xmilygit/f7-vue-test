@@ -19,7 +19,7 @@
     <teacherselect
       :open="openteacherselect"
       @close="openteacherselect=false"
-      :items="subjectitems"
+      :select="subjectitems"
       :selected="selected"
     ></teacherselect>
   </f7-page>
@@ -39,9 +39,9 @@ export default {
       //subject:''
     };
   },
-  mounted() {
+  async mounted() {
     //alert(this.$f7route.params.term)
-    this.getallteacher();
+    await this.getallteacher();
   },
   computed: {
     ...mapState("mark", ["termlist", "teachersubject", "allteacher"]),
@@ -73,7 +73,7 @@ export default {
           if (this.selected.indexOf(t.username) != -1) {
             return { _id: t._id, username: t.username, check: true };
           } else {
-            return { _id: t._id, username: t.username };
+            return { _id: t._id, username: t.username,check:false };
           }
         })
         .toArray();

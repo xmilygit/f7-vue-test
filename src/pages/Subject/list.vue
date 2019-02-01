@@ -5,7 +5,7 @@
         <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
       </f7-nav-right>
     </f7-navbar>
-    <f7-block-title>学科列表</f7-block-title>
+    <f7-block-title>学科列表 学期:{{termname}}</f7-block-title>
     <f7-list>
       <f7-list-item swipeout v-for="(item,index) in items" :key="index" :title="item">
         <f7-swipeout-actions right>
@@ -21,6 +21,8 @@
       @close="openteacherselect=false"
       :select="subjectitems"
       :selected="selected"
+      :term="termname"
+      :subject="subjectname"
     ></teacherselect>
   </f7-page>
 </template>
@@ -35,8 +37,8 @@ export default {
       subjectitems: [],
       openteacherselect: false,
       subjectindex: this.$f7route.params.term || undefined,
-      selected:[]
-      //subject:''
+      selected:[],
+      subjectname:''
     };
   },
   async mounted() {
@@ -47,6 +49,9 @@ export default {
     ...mapState("mark", ["termlist", "teachersubject", "allteacher"]),
     items: function() {
       return this.termlist[this.subjectindex].subject;
+    },
+    termname:function(){
+      return this.termlist[this.subjectindex].term;
     }
   },
   components: {
@@ -58,6 +63,7 @@ export default {
       getallteacher: "getAllTeacher"
     }),
     async teacherselect(subject) {
+      this.subjectname=subject
       this.openteacherselect = true;
       await this.getsubjectteacher({
         subject: subject,

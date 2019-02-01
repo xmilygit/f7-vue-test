@@ -3,6 +3,7 @@
     <f7-navbar title="用户" back-link="Back">
       <f7-nav-right>
         <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open="left"></f7-link>
+        <f7-link icon-if-ios="f7:search" icon-if-md="material:search" panel-open="right"></f7-link>        
       </f7-nav-right>
       <f7-subnavbar :inner="false">
         <f7-searchbar id="searchEL" placeholder="搜索" :custom-search="true" :init="true">

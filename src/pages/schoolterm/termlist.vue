@@ -12,6 +12,7 @@
           <f7-swipeout-button delete confirm-text="是否要该学期信息?">
             <f7-icon ios="f7:delete" md="material:delete"></f7-icon>
           </f7-swipeout-button>
+          <f7-swipeout-button color="yellow" @click="resetTerm(index)">重置</f7-swipeout-button>
           <f7-swipeout-button color="blue" @click="$f7router.navigate(`/mark/schoolterm/edit/index_${index}`)">修改</f7-swipeout-button>
           <f7-swipeout-button color="green" @click="$f7router.navigate(`/subject/list/index_${index}`)">学科</f7-swipeout-button>
         </f7-swipeout-actions>
@@ -51,10 +52,19 @@ export default {
     this.getTermList();
   },
     methods: {
-    ...mapActions("mark", ["getTermList","delterm"]),
+    ...mapActions("mark", ["getTermList","delterm","resetAllTeaching"]),
     delschoolterm(item){
       this.delterm({id:item._id,term:item.term})
     },
+    resetTerm(index){
+      this.$f7.dialog.confirm(
+        "该操作将删除当前学期的所有教师任教数据，请谨慎操作！！",
+         "警告",
+         ()=>{
+           this.resetAllTeaching(this.termlist[index].term)
+         },
+         ()=>{return})
+    }
   }
 };
 </script>

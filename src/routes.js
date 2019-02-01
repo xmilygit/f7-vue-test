@@ -11,7 +11,7 @@ import accountlist from './pages/accountlist.vue';
 import account from './pages/account.vue'
 import addaccount from './pages/addaccount.vue'
 import importaccount from './pages/import.vue';
-import schooltermlist from './pages/schoolterm/list.vue';
+import schooltermlist from './pages/schoolterm/termlist.vue';
 import schooltermadd from './pages/schoolterm/add.vue';
 import subjectlist from './pages/Subject/list.vue'
 import test1 from './pages/test.vue';
@@ -64,6 +64,10 @@ export default [
   {
     path: '/panel-left/',
     component: PanelLeftPage,
+  },
+  {
+    path: '/panel-right/',
+    component: PanelRightPage,
   },
   {
     path:'/accountlist/',

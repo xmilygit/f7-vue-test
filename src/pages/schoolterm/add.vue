@@ -50,7 +50,9 @@ export default {
       formdata:{
         id:undefined,
         term:'',
-        subject:''
+        subject:'',
+        oldterm:'',
+        itemindex:-1,
       },
     };
   },
@@ -71,6 +73,9 @@ export default {
         this.formdata.id=termid;
         this.formdata.term=termname
         this.formdata.subject=termsubject.join('\n')
+        this.formdata.oldterm=termname
+        this.formdata.oldsubject=termsubject
+        this.formdata.itemindex=this.editindex
       }
   },
   methods: {

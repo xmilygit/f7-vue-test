@@ -31,7 +31,7 @@
         v-for="(item,index) in items"
         :key="index"
         :title="item.username"
-        :after="wxbinder(item.binders)"
+        :after="wxbinder(item.wxopenid)"
         :link="`/account/${item._id}`"
         view="#main-view"
       >
@@ -104,9 +104,9 @@ export default {
     test() {
       alert("afasdf");
     },
-    wxbinder(binders) {
-      if (binders)
-        if (binders.length > 0) return "已绑定";
+    wxbinder(wxopenid) {
+      if (wxopenid)
+        if (wxopenid.length > 0) return "已绑定";
         else return "";
     },
     search() {

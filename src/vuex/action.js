@@ -21,6 +21,27 @@ export default {
                 sessionStorage.setItem('token', res.data.token);
             })
     },
+    //解除微信绑定
+    async UnBinderWechat({commit},index){
+        commit('ChangeShowPreloader', true);
+        try{
+            let res=await axios.post('/sys/unbinderwechat',{openid:state.AccList[index].wxopenid})
+            delete state.AccList[index].wxopenid
+            commit('ChangeShowPreloader', false);
+            commit('ChangeDialog',{
+                status:true,
+                title:'解除完成',
+                message:'受影响的数据:'+res.data.result.nModified+'条'
+            })
+        }catch(err){
+            commit('ChangeShowPreloader', true);
+            commit('ChangeDialog',{
+                status:true,
+                title:'出错了',
+                message:'错误:'+res.data.message
+            })
+        }
+    },
     async GetAccList({ commit }, query) {
         if (!state.allowInfinite) return;
         commit('ChangeAllowInfinite', false);

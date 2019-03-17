@@ -32,7 +32,7 @@
         :key="index"
         :title="item.username"
         :after="wxbinder(item.wxopenid)"
-        :link="`/account/${item._id}`"
+        :link="`/account/${item._id}/index_${index}`"
         view="#main-view"
       >
         <f7-swipeout-actions right>

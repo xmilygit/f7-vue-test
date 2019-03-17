@@ -34,7 +34,7 @@ export default [
     component:importaccount,
   },
   {
-    path:'/account/:id',
+    path:'/account/:id/index_:index',
     component:account,
   },
   {

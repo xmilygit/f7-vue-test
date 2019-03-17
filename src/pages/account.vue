@@ -12,7 +12,7 @@
     <f7-card-content>
       <p>身份证：{{account.pid}}</p>
       <p>性别：{{account.gender}}</p>
-      <p>出生日期:{{account.baseinfo.born}}</p>
+      <p v-if="account.baseinfo">出生日期:{{account.baseinfo.born}}</p>
       <!-- <f7-block-title v-show="account.binders">帐户绑定情况</f7-block-title>
       <f7-list v-if="account.binders.length>0" simple-list>
       <f7-list-item swipeout v-for="(item,index) in account.binders" :key="index" :title="item.type" view="#main-view">
@@ -25,6 +25,7 @@
     <f7-card-footer>
         <f7-link icon-f7="compose"></f7-link>
         <f7-link icon-f7="lock"></f7-link>
+        <f7-link v-if="account.wxopenid" icon-f7="chat_bubble" @click="UnBinderWechat(itemindex)"></f7-link>
   </f7-card-footer>
     </f7-card>
 <button @click="getcookies">login</button>
@@ -40,21 +41,23 @@
 </f7-page>
 </template>
 <script>
-// import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 var linq = require("linq");
 export default {
   data() {
     return {
+      itemindex:null,
       account: {
         username: "努力加载中...",
-        binders: []
       }
     };
   },
   mounted() {
-    let acclist = this.$store.state.AccList;
+    //let acclist = this.$store.state.AccList;
     let currentid = this.$f7route.params.id;
-    this.account = linq.from(acclist).firstOrDefault(x => x._id == currentid);
+    this.itemindex=this.$f7route.params.index;
+    this.account=this.$store.state.AccList[this.itemindex];
+    //this.account = linq.from(acclist).firstOrDefault(x => x._id == currentid);
     // if (this.account.binders.length > 0) this.binders = true;
     // console.log(this.account);
   },
@@ -68,6 +71,7 @@ export default {
     // }
   },
   methods: {
+    ...mapActions(["UnBinderWechat"]),
     getcookies() {
       this.$store.dispatch("test");
     },

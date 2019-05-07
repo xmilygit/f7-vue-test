@@ -5,6 +5,7 @@ import * as getters from './getter.js';
 import mutations from './mutations.js';
 import actions from './action.js';
 import markstore from '@/vuex/modules/mark.js'
+import graduate from '@/vuex/modules/graduate.js'
 import test from '@/vuex/modules/test.js'
 
 // 引入 axios
@@ -21,6 +22,7 @@ export default new vuex.Store({
     actions,
     modules:{
         mark:markstore,
+        graduate:graduate,
         test11:test,
     }
 })

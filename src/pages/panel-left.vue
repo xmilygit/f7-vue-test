@@ -15,6 +15,10 @@
       <f7-list-item link="/mark/schoolterm/add/" title="添加学期" view="#main-view" panel-close></f7-list-item>
       <f7-list-item link="/mark/schoolterm/test/" title="添加TEST" view="#main-view" panel-close></f7-list-item>
     </f7-list>
+    <f7-block-title>毕业生管理</f7-block-title>
+    <f7-list>
+      <f7-list-item link="/graduate/list/" title="毕业生列表" view="#main-view" panel-close></f7-list-item>
+    </f7-list>
     <f7-block-title>功能开关</f7-block-title>
     <f7-list>
       <f7-list-item link="/test/" title="test1" view="#main-view" panel-close></f7-list-item>

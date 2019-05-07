@@ -4,7 +4,7 @@ const state = {
     allowInfinite:true,
     showPreloader:false,
     lastid:'',
-    graduatelist:{},
+    graduatelist:[],
     graduateinfo: {},
 };
 const mutations = {
@@ -22,8 +22,9 @@ const actions = {
     async getAllGraduateInfo({commit},query){
         if(!state.allowInfinite) return;
         state.allowInfinite=false;
+        state.showPreloader=true;
         try{
-            let res=await axios.post('/graduate/search',{
+            let res=await axios.post('/sys/graduate/search/',{
                 data:{
                     pagesize:query.pagesize,
                     keyword:query.search,
@@ -31,14 +32,35 @@ const actions = {
                 }
             })
             if(res.data.error){
-                let errdialog={
-                    status: true,
-                    title: "出错了",
-                    message: '错误' + res.data.message
-                }
+                commit('setAsyncResult',{
+                    show:true,
+                    error:true,
+                    message:'错误:服务器执行了操作，但出错了。（'+res.data.message+"）",
+                    title:'出错了',
+                    result:'',
+                    from:'分页获取全部毕业生信息回调'
+                },{root:true})
+                return;
             }
-        }catch(err){
-
+            state.allowInfinite=true;
+            state.showPreloader=false;
+            state.graduatelist=state.graduatelist.concat(res.data.result)
+            state.lastid=res.data.result[res.data.result.length-1]._id;
+            if(state.graduatelist.length>=res.data.recordset){
+                state.showPreloader=false;
+                state.allowInfinite=false;
+            }
+        } catch (err) {
+            state.allowInfinite=true;
+            state.showPreloader=false;
+            commit('setAsyncResult', {
+                show: true,
+                error: true,
+                message: "错误：服务器未执行操作（" + err + "）",
+                title: '系统出错',
+                result: '',
+                from: '分页获取全部毕业生信息回调'
+            }, { root: true })
         }
     },
     //获取毕业生基础信息

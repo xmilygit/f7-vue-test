@@ -14,6 +14,7 @@ import importaccount from './pages/import.vue';
 import schooltermlist from './pages/schoolterm/termlist.vue';
 import schooltermadd from './pages/schoolterm/add.vue';
 import subjectlist from './pages/Subject/list.vue'
+import graduatelist from './pages/graduate/index.vue'
 import test1 from './pages/test.vue';
 import test2 from './pages/test2.vue';
 import test3 from './pages/schoolterm/test.vue';
@@ -72,6 +73,10 @@ export default [
   {
     path:'/accountlist/',
     component:accountlist,
+  },
+  {
+    path:'/graduate/list/',
+    component:graduatelist
   },
   // {
   //   path: '/dynamic-route/blog/:blogId/post/:postId/',

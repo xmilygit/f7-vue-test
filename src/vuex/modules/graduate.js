@@ -3,6 +3,7 @@ import axios from 'axios'
 const state = {
     allowInfinite:true,
     showPreloader:false,
+    graduateSysStatus:true,
     lastid:'',
     graduatelist:[],
     graduateinfo: {},
@@ -17,7 +18,77 @@ const mutations = {
         state.graduateinfo[val.key]=val.value
     },
 };
-const actions = {
+const actions = {    
+    async getGraduateSysStatus({commit}){
+        state.showPreloade=true;
+        try{
+            let res = await axios.get('/sys/funstatus/?funname=graduate')
+            state.showPreloader = false
+            if (res.data.error) {
+                commit('setAsyncResult', {
+                    show: true,
+                    error: true,
+                    message: '错误:服务器执行了操作，但出错了。（' + res.data.message + "）",
+                    title: '出错了',
+                    result: '',
+                    from: '获取毕业生系统开关状态'
+                }, { root: true })
+                return;
+            }            
+            state.graduateSysStatus=res.data.result            
+        }catch(err){
+            state.showPreloader=false
+            commit('setAsyncResult', {
+                show: true,
+                error: true,
+                message: '错误:服务器执行了操作，但出错了。（' + err.message + "）",
+                title: '出错了',
+                result: '',
+                from: '获取毕业生系统开关状态'
+            }, { root: true })
+            return;
+        }
+    },
+    
+    //设置毕业生系统开关状态
+    async setGraduateSysStatus({ commit }, val) {
+        state.showPreloader = true;
+        console.log(state.graduateSysStatus)
+        try {
+            let res = await axios.get('/sys/funupdate/?funname=' + val.funname + '&value=' + !state.graduateSysStatus);
+            state.showPreloader = false;
+            if (res.data.error) {
+                commit('setAsyncResult', {
+                    show: true,
+                    error: true,
+                    message: '错误:服务器执行了操作，但出错了。（' + res.data.message + "）",
+                    title: '出错了',
+                    result: '',
+                    from: '设置毕业生系统开关状态'
+                }, { root: true })
+                return;
+            }
+            state.graduateSysStatus = !state.graduateSysStatus
+            commit('setAsyncResult', {
+                show: true,
+                error: false,
+                message: res.data.result,
+                title: '提示',
+                result: '',
+                from: '设置毕业生系统开关状态'
+            }, { root: true })
+        } catch (err) {
+            commit('setAsyncResult', {
+                show: true,
+                error: true,
+                message: '错误:服务器执行了操作，但出错了。（' + err.message + "）",
+                title: '出错了',
+                result: '',
+                from: '设置毕业生系统开关状态'
+            }, { root: true })
+            return;
+        }
+    },
     //分页获取所有毕业信息
     async getAllGraduateInfo({commit},query){
         if(!state.allowInfinite) return;

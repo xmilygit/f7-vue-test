@@ -19,8 +19,8 @@
     <f7-list>
       <f7-list-item link="/graduate/list/" title="毕业生列表" view="#main-view" panel-close></f7-list-item>
       <f7-list-item title="毕业生系统开关" panel-close>
-      <f7-toggle checked color="blue" v-if="sysStatus" @click="setGraduateSysStatus"></f7-toggle>
-      <f7-toggle  color="blue" v-else @click="setGraduateSysStatus"></f7-toggle>
+      <f7-toggle checked color="blue" v-if="sysStatus" @toggle:change="setGraduateSysStatus" key="chk"></f7-toggle>
+      <f7-toggle  color="blue" v-else @toggle:change="setGraduateSysStatus" key="unchk"></f7-toggle>
       </f7-list-item>
     </f7-list>
     <f7-block-title>功能开关</f7-block-title>

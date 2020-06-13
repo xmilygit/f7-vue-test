@@ -51,11 +51,12 @@ const actions = {
     },
     
     //设置毕业生系统开关状态
-    async setGraduateSysStatus({ commit }, val) {
+    async setGraduateSysStatus({ commit }) {
         state.showPreloader = true;
         console.log(state.graduateSysStatus)
         try {
-            let res = await axios.get('/sys/funupdate/?funname=' + val.funname + '&value=' + !state.graduateSysStatus);
+            // let res = await axios.get('/sys/funupdate/?funname=' + val.funname + '&value=' + !state.graduateSysStatus);
+            let res = await axios.get('/sys/funupdate/?value=' + !state.graduateSysStatus);
             state.showPreloader = false;
             if (res.data.error) {
                 commit('setAsyncResult', {
